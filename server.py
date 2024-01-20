@@ -2,13 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import numpy as np
 import joblib
+from predict import crop_prediction_dt, crop_prediction_rf
 app = Flask(__name__)
 CORS(app, resources={r"/.*": {"origins": "*"}})
-
-from sklearn.ensemble import RandomForestClassifier
-# rf_classifier_loaded = RandomForestClassifier('ai_model/test.jblib')  # Load your model here
-loaded_model = joblib.load('random_forest_model.joblib')
-loaded_label_mapping = joblib.load('label_mapping.joblib')
 
 @app.route('/')
 def home():
@@ -34,14 +30,15 @@ def predict_crop():
         print("line 30")
         # Make the prediction using the loaded model
         new_data_point = np.array([N, P, K, temperature, humidity, ph, rainfall])
-        crop_label = loaded_model.predict(new_data_point)[0]
+         # Predict crop using Random Forest
+        predicted_crop_rf = crop_prediction_rf(new_data_point)
 
-    # Map the label to the crop name using the label_mapping
-        predicted_crop = loaded_label_mapping.get(crop_label)
+        # Predict crop using Decision Tree
+        predicted_crop_dt = crop_prediction_dt(new_data_point)
 
         
         # Return the prediction as JSON response
-        response = {'predicted_crop': predicted_crop}
+        response = {'predicted_crop': predicted_crop_dt}
         print(response)
         return jsonify(response,"RES")
 

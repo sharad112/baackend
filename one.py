@@ -170,6 +170,7 @@ class RandomForestClassifier:
         predictions = np.array([tree.predict(X) for tree in self.estimators])
         return np.array([np.bincount(predictions[:, i]).argmax() for i in range(predictions.shape[1])])
 
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 rf_classifier = RandomForestClassifier(n_estimators=30, max_depth=10)
