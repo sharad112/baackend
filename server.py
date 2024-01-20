@@ -19,14 +19,14 @@ def predict_crop():
         input_data=input_data["input_feature"]
         print(input_data)
         # Extract input features from the JSON data
-        N = input_data['N']
+        N = int(input_data['N'])
         print("line 24")
-        P = input_data['P']
-        K = input_data['K']
-        temperature = input_data['temperature']
-        humidity = input_data['humidity']
-        ph = input_data['ph']
-        rainfall = input_data['rainfall']
+        P = int(input_data['P'])
+        K = int(input_data['K'])
+        temperature = int(input_data['temperature'])
+        humidity = int(input_data['humidity'])
+        ph = int(input_data['ph'])
+        rainfall = int(input_data['rainfall'])
         print("line 30")
         # Make the prediction using the loaded model
         new_data_point = np.array([N, P, K, temperature, humidity, ph, rainfall])
