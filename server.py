@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import numpy as np
 import joblib
-from predict import crop_prediction_dt, crop_prediction_rf
+from predict import crop_prediction_dt, crop_prediction_rf, RandomForestClassifier, DecisionTree
 app = Flask(__name__)
 CORS(app, resources={r"/.*": {"origins": "*"}})
 
@@ -51,4 +51,5 @@ def predict_crop():
 
 if __name__ == '__main__':
     # Run the Flask app on port 5000
+    print(crop_prediction_dt(np.array([12, 12, 12, 12, 12, 12, 12])))
     app.run(port=5000, debug=True)
