@@ -38,7 +38,7 @@ def predict_crop():
 
         
         # Return the prediction as JSON response
-        response = {'predicted_crop': predicted_crop_dt}
+        response = {'predicted_crop': predicted_crop_rf}
         print(response)
         return jsonify(response,"RES")
 
@@ -51,5 +51,6 @@ def predict_crop():
 
 if __name__ == '__main__':
     # Run the Flask app on port 5000
+    print(crop_prediction_rf(np.array([12, 12, 12, 12, 12, 12, 12])))
     print(crop_prediction_dt(np.array([12, 12, 12, 12, 12, 12, 12])))
     app.run(port=5000, debug=True)
